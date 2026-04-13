@@ -19,7 +19,7 @@ models:
   olist_dbt:
     staging:
       +materialized: view
-      +schema: RAW
+      +schema: STAGING
     intermediate:
       +materialized: view
       +schema: STAGING
