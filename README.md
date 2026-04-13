@@ -26,20 +26,23 @@ Kaggle API
     ↓
 Python (ingestion)
     ↓
-Snowflake — RAW schema
+Snowflake — RAW schema (raw data)
     ↓
-dbt Core (Staging → Intermediate → Marts)
+Snowflake — STAGING schema (staging + intermediate views)
     ↓
-Snowflake — MARTS schema
+Snowflake — MARTS schema (mart tables)
     ↓
 Power BI Dashboard
 
 Orchestration: GitHub Actions (triggered on every push to main)
+
 ```
 
 ### Data Flow
 1. **Ingestion**: Python script downloads 9 CSV files via Kaggle API and loads them into Snowflake RAW schema
-2. **Transformation**: dbt models transform raw data through 3 layers (Staging → Intermediate → Marts)
+2. **Transformation**: Transformation: dbt models transform raw data through 3 layers — 
+Staging and Intermediate views land in Snowflake STAGING schema, 
+Mart tables land in MARTS schema
 3. **Orchestration**: GitHub Actions runs `dbt build` on every push to main and supports manual triggers via `workflow_dispatch`
 4. **Visualization**: Power BI imports data from Snowflake MARTS schema, delivering insights across 4 dashboard pages
 
